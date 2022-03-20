@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:drivers_app/components/onboarding_page_1.dart';
 import 'package:drivers_app/components/onboarding_page_2.dart';
 import 'package:drivers_app/components/onboarding_page_3.dart';
 import 'package:drivers_app/screens/welcome_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
