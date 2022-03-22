@@ -14,7 +14,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -40,8 +40,112 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            color: Colors.blue,
+          child: Center(
+            child: SizedBox(
+              width: size.width * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Dashboard",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Scan licence to access driver's profile",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+                  Image.asset(
+                    'assets/images/frame.png',
+                  ),
+                  const SizedBox(height: 70),
+                  // btn - complete scan
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          backgroundColor: Colors.black,
+                          alignment: Alignment.centerLeft,
+                        ),
+                        onPressed: () => {},
+                        child: const Text(
+                          "Complete scan",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // btn - officer profile
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          backgroundColor: const Color(0xFFF5F5F5),
+                          alignment: Alignment.centerLeft,
+                        ),
+                        onPressed: () => {},
+                        child: const Text(
+                          "Officer profile",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // btn - support
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          backgroundColor: const Color(0xFFF5F5F5),
+                          alignment: Alignment.centerLeft,
+                        ),
+                        onPressed: () => {},
+                        child: const Text(
+                          "Support",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

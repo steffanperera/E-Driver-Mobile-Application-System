@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drivers_app/components/driver_card.dart';
 import 'package:drivers_app/screens/driver_profile.dart';
-
 import 'login_page.dart';
 
 class DriverDashboard extends StatefulWidget {

@@ -31,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: <Widget>[
                   const SizedBox(height: 30),
                   Image.asset(
-                    "assets/images/image.png",
+                    'assets/images/image.png',
                   ),
                   const SizedBox(height: 40),
                   const Text(
