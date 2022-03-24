@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/login_page.dart';
+import 'package:police_app/screens/officer_profile.dart';
 
 class OfficerDashboard extends StatefulWidget {
   const OfficerDashboard({Key? key}) : super(key: key);
@@ -83,7 +85,16 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           backgroundColor: Colors.black,
                           alignment: Alignment.centerLeft,
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LicenceDetails();
+                              },
+                            ),
+                          ),
+                        },
                         child: const Text(
                           "Complete scan",
                           style: TextStyle(
@@ -107,7 +118,16 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           backgroundColor: const Color(0xFFF5F5F5),
                           alignment: Alignment.centerLeft,
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const OfficerProfile();
+                              },
+                            ),
+                          ),
+                        },
                         child: const Text(
                           "Officer profile",
                           style: TextStyle(
@@ -119,7 +139,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                       ),
                     ),
                   ),
-                  // btn - support
+                  // btn - sign out
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     width: size.width * 0.8,
@@ -133,7 +153,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                         ),
                         onPressed: () => {},
                         child: const Text(
-                          "Support",
+                          "Sign out",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
