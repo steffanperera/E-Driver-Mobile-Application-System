@@ -85,7 +85,26 @@ class _OfficerProfileState extends State<OfficerProfile> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 16),
+                  // breaker
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    width: size.width * 0.8,
+                    height: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20),
+                        color: Colors.black,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   // details
                   const Text(
                     "Details",
@@ -142,29 +161,13 @@ class _OfficerProfileState extends State<OfficerProfile> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  // btn - sign out
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: size.width * 0.8,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                          backgroundColor: const Color(0xFFF5F5F5),
-                          alignment: Alignment.centerLeft,
-                        ),
-                        onPressed: () => {},
-                        child: const Text(
-                          "Support",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Expire: \n11-12-22",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
                     ),
                   ),
                 ],
