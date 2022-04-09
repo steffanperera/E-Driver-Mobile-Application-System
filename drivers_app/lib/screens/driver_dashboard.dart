@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drivers_app/screens/pay_fines.dart';
+import 'package:drivers_app/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drivers_app/components/driver_card.dart';
@@ -75,77 +77,93 @@ class _DriverDashboardState extends State<DriverDashboard> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        width: size.width * 0.38,
-                        height: 60,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 20),
-                            color: const Color(0xFFF5F5F5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Text(
-                                  "Due fines",
-                                  style: TextStyle(
-                                    fontSize: 12,
+                  StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection('violation').where('driver', isEqualTo: StaticData.userId).snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        var due = 0, tot = 0;
+                        for (int a = 0; a < snapshot.data!.docs.length; a++) {
+                          if (snapshot.data!.docs[a]["payment"] == false) {
+                            due++;
+                          }
+                          tot++;
+                        }
+                        return Row(
+                          children: <Widget>[
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              width: size.width * 0.38,
+                              height: 60,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  color: const Color(0xFFF5F5F5),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:  <Widget>[
+                                      const Text(
+                                        "Due fines",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        due.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.3,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  "2",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: size.width * 0.04),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        width: size.width * 0.38,
-                        height: 60,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 20),
-                            color: const Color(0xFFF5F5F5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Text(
-                                  "Total violations",
-                                  style: TextStyle(
-                                    fontSize: 12,
+                            SizedBox(width: size.width * 0.04),
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              width: size.width * 0.38,
+                              height: 60,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  color: const Color(0xFFF5F5F5),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:  <Widget>[
+                                      const Text(
+                                        "Total violations",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        tot.toString(),
+                                        style:const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.3,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  "5",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600,
-                                    height: 1.3,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                          ],
+                        );
+                      }),
                   const SizedBox(height: 20),
                   const Text(
                     "Services",

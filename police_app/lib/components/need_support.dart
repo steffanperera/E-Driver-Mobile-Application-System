@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:police_app/screens/officer_help.dart';
 
 class NeedSupport extends StatelessWidget {
   const NeedSupport({Key? key}) : super(key: key);
@@ -28,14 +29,14 @@ class NeedSupport extends StatelessWidget {
             ),
           ),
           onTap: () => {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) {
-            //       return const LoginPage();
-            //     },
-            //   ),
-            // ),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const OfficerHelp();
+                },
+              ),
+            ),
           },
         ),
       ],

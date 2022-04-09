@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:police_app/components/cant_access_acc.dart';
 import 'package:police_app/screens/officer_dashboard.dart';
 import 'package:police_app/screens/welcome_screen.dart';
+import 'package:police_app/staticData.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,6 +15,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController uname = new TextEditingController();
+  TextEditingController password = new TextEditingController();
 
   bool isHiddenPassword = true;
 
@@ -88,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            controller: uname,
                             cursorColor: Colors.black,
                             decoration: const InputDecoration(
                               hintText: "Officer ID",
@@ -115,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            controller: password,
                             obscureText: isHiddenPassword,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -156,14 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor: Colors.black,
                         ),
                         onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const OfficerDashboard();
-                              },
-                            ),
-                          ),
+                          if (_formKey.currentState!.validate()) {checkAccount(uname.text, password.text)}
                         },
                         child: const Text(
                           "Log In",
@@ -184,6 +183,27 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  //Login Verify
+  void checkAccount(String uname, String password) {
+    FirebaseFirestore.instance.collection('officer').get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc.id == uname) {
+          if (doc["password"] == password) {
+            StaticData.loggeduser = doc.id;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const OfficerDashboard();
+                },
+              ),
+            );
+          }
+        }
+      });
+    });
   }
 
   void _togglePasswordView() {

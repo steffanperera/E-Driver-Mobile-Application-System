@@ -146,7 +146,7 @@ class _LicenceDetailsState extends State<LicenceDetails> {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    "Services",
+                    "Actions",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -179,7 +179,7 @@ class _LicenceDetailsState extends State<LicenceDetails> {
                           // ),
                         },
                         child: const Text(
-                          "My profile",
+                          "Driver profile",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -212,7 +212,7 @@ class _LicenceDetailsState extends State<LicenceDetails> {
                           // ),
                         },
                         child: const Text(
-                          "Pay fines",
+                          "Strike fine",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -236,7 +236,7 @@ class _LicenceDetailsState extends State<LicenceDetails> {
                         ),
                         onPressed: () => {},
                         child: const Text(
-                          "Support",
+                          "History",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,

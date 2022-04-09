@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drivers_app/screens/payment_page.dart';
+import 'package:drivers_app/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'driver_dashboard.dart';
@@ -11,6 +13,7 @@ class PayFines extends StatefulWidget {
 }
 
 class _PayFinesState extends State<PayFines> {
+  List<Widget> activefines = [];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -81,53 +84,71 @@ class _PayFinesState extends State<PayFines> {
                   ),
                   const SizedBox(height: 10),
                   // fine (clickable)
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: size.width * 0.8,
-                    height: 70,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(left: 20),
-                          backgroundColor: const Color(0xFFF9AEAE),
-                          alignment: Alignment.centerLeft,
-                        ),
-                        onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const PaymentPage();
-                              },
-                            ),
+                  StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection('violation').where('driver', isEqualTo: StaticData.userId).where('payment', isEqualTo: false).snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return SizedBox(
+                          height: size.height * 0.3,
+                          child: ListView(
+                            children: snapshot.data!.docs.map((document) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                width: size.width * 0.8,
+                                height: 70,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      backgroundColor: const Color(0xFFF9AEAE),
+                                      alignment: Alignment.centerLeft,
+                                    ),
+                                    onPressed: () => {
+                                      StaticData.fineId = document.id,
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const PaymentPage();
+                                          },
+                                        ),
+                                      ),
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          document['date'],
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFFEA5252),
+                                          ),
+                                        ),
+                                        Text(
+                                          "#" + document.id + "",
+                                          style: const TextStyle(
+                                            color: Color(0xFFEA5252),
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.6,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                           ),
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Text(
-                              "2022-03-04 12:31:00",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFFEA5252),
-                              ),
-                            ),
-                            Text(
-                              "#163426282",
-                              style: TextStyle(
-                                color: Color(0xFFEA5252),
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                height: 1.6,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                        );
+                      }),
                   const SizedBox(height: 20),
                   // history
                   const Text(
@@ -142,53 +163,70 @@ class _PayFinesState extends State<PayFines> {
                   ),
                   const SizedBox(height: 10),
                   // payed fine (clickable)
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: size.width * 0.8,
-                    height: 70,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(left: 20),
-                          backgroundColor: const Color(0xFFF5F5F5),
-                          alignment: Alignment.centerLeft,
-                        ),
-                        onPressed: () => {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) {
-                          //       return const DriverProfile();
-                          //     },
-                          //   ),
-                          // ),
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Text(
-                              "2022-03-04 12:31:00",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              "#163426282",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                height: 1.6,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection('violation').where('driver', isEqualTo: StaticData.userId).where('payment', isEqualTo: true).snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return SizedBox(
+                          height: size.height * 0.4,
+                          child: ListView(
+                            children: snapshot.data!.docs.map((document) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                width: size.width * 0.8,
+                                height: 70,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      backgroundColor: const Color(0xFFF5F5F5),
+                                      alignment: Alignment.centerLeft,
+                                    ),
+                                    onPressed: () => {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) {
+                                      //       return const DriverProfile();
+                                      //     },
+                                      //   ),
+                                      // ),
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          document['date'],
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Text(
+                                          "#" + document.id + "",
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.6,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      }),
                 ],
               ),
             ),

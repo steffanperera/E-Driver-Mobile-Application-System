@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drivers_app/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:drivers_app/screens/welcome_screen.dart';
@@ -160,18 +162,10 @@ class _LoginPageState extends State<LoginPage> {
                                 backgroundColor: const Color(0xFF3EA2F9),
                               ),
                               onPressed: () => {
-                                // if (_formKey.currentState!.validate())
-                                //   {
-                                //     _getDriver(),
-                                //   }
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const DriverDashboard();
-                                    },
-                                  ),
-                                ),
+                                if (_formKey.currentState!.validate())
+                                  {
+                                    _getDriver(),
+                                  }
                               },
                               child: const Text(
                                 "Log In",
@@ -207,25 +201,26 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {});
   }
 
-  // match driver id to firestore
-  // void _getDriver() {
-  //   FirebaseFirestore.instance.collection('driver').get().then((QuerySnapshot querySnapshot) {
-  //     querySnapshot.docs.forEach((doc) {
-  //       if (doc.id == driver_id.text) {
-  //         if (doc["password"] == password.text) {
-  //           Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) {
-  //                 return const DriverDashboard();
-  //               },
-  //             ),
-  //           );
-  //         } else {
-  //           print("No matching pass");
-  //         }
-  //       }
-  //     });
-  //   });
-  // }
+  //match driver id to firestore
+  void _getDriver() {
+    FirebaseFirestore.instance.collection('driver').get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc.id == driver_id.text) {
+          if (doc["password"] == password.text) {
+            StaticData.userId = doc.id;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const DriverDashboard();
+                },
+              ),
+            );
+          } else {
+            print("No matching pass");
+          }
+        }
+      });
+    });
+  }
 }

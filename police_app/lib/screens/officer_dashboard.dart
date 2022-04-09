@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/login_page.dart';
 import 'package:police_app/screens/officer_profile.dart';
@@ -12,6 +13,8 @@ class OfficerDashboard extends StatefulWidget {
 }
 
 class _OfficerDashboardState extends State<OfficerDashboard> {
+  ValueNotifier<dynamic> result = ValueNotifier(null);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -86,14 +89,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           alignment: Alignment.centerLeft,
                         ),
                         onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const LicenceDetails();
-                              },
-                            ),
-                          ),
+                          _tagRead(),
                         },
                         child: const Text(
                           "Complete scan",
@@ -153,7 +149,7 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                         ),
                         onPressed: () => {},
                         child: const Text(
-                          "Sign out",
+                          "Support",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -170,5 +166,22 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
         ),
       ),
     );
+  }
+
+  void _tagRead() {
+    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
+      result.value = tag.data;
+      var licence = result.value;
+      print(licence);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const LicenceDetails();
+          },
+        ),
+      );
+      NfcManager.instance.stopSession();
+    });
   }
 }
