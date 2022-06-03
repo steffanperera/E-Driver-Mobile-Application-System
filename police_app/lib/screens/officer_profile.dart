@@ -48,8 +48,13 @@ class _OfficerProfileState extends State<OfficerProfile> {
               child: StreamBuilder<DocumentSnapshot>(
                   stream: FirebaseFirestore.instance.collection('officer').doc(StaticData.loggeduser).snapshots(),
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const   Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                     var userDocument = snapshot.data!;
-                    
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -73,8 +78,8 @@ class _OfficerProfileState extends State<OfficerProfile> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                         Text(
-                         userDocument["name"],
+                        Text(
+                          userDocument["name"],
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black,
@@ -84,8 +89,8 @@ class _OfficerProfileState extends State<OfficerProfile> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                         Text(
-                          "Police officer "+userDocument["badge_no"]+" \n"+userDocument["department"]+"",
+                        Text(
+                          "Police officer " + userDocument["badge_no"] + " \n" + userDocument["department"] + "",
                           style: const TextStyle(
                             color: Colors.black87,
                             fontFamily: 'Montserrat',
@@ -105,44 +110,42 @@ class _OfficerProfileState extends State<OfficerProfile> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                         Text(
-                          "NIC: \n"+userDocument["nic"]+"",
-                          style:const TextStyle(
+                        Text(
+                          "NIC: \n" + userDocument["nic"] + "",
+                          style: const TextStyle(
                             color: Colors.black87,
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                           ),
                         ),
                         const SizedBox(height: 20),
-                         Text(
-                          "Blood group: \n"+userDocument["blood_group"]+"",
-                          style:const TextStyle(
+                        Text(
+                          "Blood group: \n" + userDocument["blood_group"] + "",
+                          style: const TextStyle(
                             color: Colors.black87,
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                           ),
                         ),
                         const SizedBox(height: 20),
-                         Text(
-                          "Address: \n"+userDocument["address"]+"",
-                          style:const TextStyle(
+                        Text(
+                          "Address: \n" + userDocument["address"] + "",
+                          style: const TextStyle(
                             color: Colors.black87,
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                           ),
                         ),
                         const SizedBox(height: 20),
-                         Text(
-                          "Phone: \n+94 "+userDocument["phone"].toString()+"",
-                          style:const TextStyle(
+                        Text(
+                          "Phone: \n+94 " + userDocument["phone"].toString() + "",
+                          style: const TextStyle(
                             color: Colors.black87,
                             fontFamily: 'Montserrat',
                             fontSize: 16,
                           ),
                         ),
                         const SizedBox(height: 20),
-                         
-                        
                       ],
                     );
                   }),

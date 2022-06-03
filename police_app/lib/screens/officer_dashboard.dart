@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/login_page.dart';
 import 'package:police_app/screens/officer_profile.dart';
+import 'package:police_app/staticData.dart';
 
 class OfficerDashboard extends StatefulWidget {
   const OfficerDashboard({Key? key}) : super(key: key);
@@ -89,7 +91,18 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           alignment: Alignment.centerLeft,
                         ),
                         onPressed: () => {
-                          _tagRead(),
+                          // _tagRead(),
+
+                          StaticData.driverId='d001',
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const LicenceDetails();
+                              },
+                            ),
+                          )
                         },
                         child: const Text(
                           "Complete scan",
@@ -173,14 +186,33 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
       result.value = tag.data;
       var licence = result.value;
       print(licence);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const LicenceDetails();
-          },
-        ),
-      );
+      StaticData.passengerLisence = licence.toString();
+
+      bool exist = false;
+      //Find User
+      await FirebaseFirestore.instance.collection("driver").where("nfc", isEqualTo: licence).get().then((res) {
+        print(res.docs.length);
+
+        if (res.docs.length > 0) {
+          for (int a = 0; a < res.docs.length; a++) {
+            print(res.docs[0].id);
+            StaticData.driverId = res.docs[0].id;
+            exist = true;
+          }
+        }
+      });
+
+      if (exist = true) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const LicenceDetails();
+            },
+          ),
+        );
+      }
+
       NfcManager.instance.stopSession();
     });
   }
