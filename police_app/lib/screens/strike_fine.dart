@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/officer_dashboard.dart';
 
@@ -12,6 +15,11 @@ class StrikeFine extends StatefulWidget {
 
 class _StrikeFineState extends State<StrikeFine> {
   int _currentStep = 0;
+  int _index = 0;
+
+  File? imageFile;
+  var _image;
+  String dropdownValue = 'A = 3000/=';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,28 +69,56 @@ class _StrikeFineState extends State<StrikeFine> {
                   ),
                   const SizedBox(height: 10),
                   Stepper(
-                    steps: const [
+                    currentStep: _index,
+                    onStepCancel: () {
+                      if (_index > 0) {
+                        setState(() {
+                          _index -= 1;
+                        });
+                      }
+                    },
+                    onStepContinue: () {
+                      if (_index <= 0) {
+                        setState(() {
+                          _index += 1;
+                        });
+                      }
+                    },
+                    steps: [
                       Step(
-                        title: Text(
+                        title: const Text(
                           "Violation Category",
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        content: Text("data"),
+                        content: DropdownButton(
+                          value: dropdownValue,
+                          items: <String>['A = 3000/=', 'B = 4000/=', 'C = 5000/='].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                        ),
                       ),
-                      Step(
-                        title: Text(
+                       Step(
+                        title:const Text(
                           "Add Evidence",
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        content: Text("data"),
+                        content: ElevatedButton(onPressed: () => _imgFromGallery(), child:const  Text("Capture")),
                       ),
-                      Step(
+                      const Step(
                         title: Text(
                           "Location",
                           style: TextStyle(
@@ -92,7 +128,7 @@ class _StrikeFineState extends State<StrikeFine> {
                         ),
                         content: Text("data"),
                       ),
-                      Step(
+                      const Step(
                         title: Text(
                           "Whitness ID",
                           style: TextStyle(
@@ -105,7 +141,7 @@ class _StrikeFineState extends State<StrikeFine> {
                     ],
                     onStepTapped: (int newIndex) {
                       setState(() {
-                        _currentStep = newIndex;
+                        _index = newIndex;
                       });
                     },
                   ),
@@ -116,5 +152,15 @@ class _StrikeFineState extends State<StrikeFine> {
         ),
       ),
     );
+  }
+
+  _imgFromGallery() async {
+    final XFile? pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        imageFile = File(pickedImage.path);
+        _image = File(pickedImage.path);
+      });
+    }
   }
 }
