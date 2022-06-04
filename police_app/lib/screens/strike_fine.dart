@@ -8,6 +8,7 @@ import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/officer_dashboard.dart';
 
 import '../components/firebaseApi.dart';
+import '../staticData.dart';
 
 class StrikeFine extends StatefulWidget {
   const StrikeFine({Key? key}) : super(key: key);
@@ -204,13 +205,9 @@ class _StrikeFineState extends State<StrikeFine> {
   }
 
   void createFine() async {
-    await FirebaseFirestore.instance.collection('violation').add({
-      'fine': dropdownValue,
-      'loaction': location.text,
-      'witness id': witness.text,
-      'date': DateTime.now().toString(),
-      'payment': false,
-    }).then((value) async {
+    await FirebaseFirestore.instance
+        .collection('violation')
+        .add({'fine': dropdownValue, 'loaction': location.text, 'witness id': witness.text, 'date': DateTime.now().toString(), 'payment': false, 'driver': StaticData.driverId}).then((value) async {
       var newPath = value.id;
       var task = FirebaseApi.uploadFile('Evidence/$newPath', imageFile!);
       final snapshot = await task!.whenComplete(() {});
