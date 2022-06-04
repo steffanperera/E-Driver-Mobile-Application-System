@@ -5,6 +5,7 @@ import 'package:nfc_manager/nfc_manager.dart';
 import 'package:police_app/screens/licence_details.dart';
 import 'package:police_app/screens/login_page.dart';
 import 'package:police_app/screens/officer_profile.dart';
+import 'package:police_app/screens/support.dart';
 import 'package:police_app/staticData.dart';
 
 class OfficerDashboard extends StatefulWidget {
@@ -160,7 +161,16 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           backgroundColor: const Color(0xFFF5F5F5),
                           alignment: Alignment.centerLeft,
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const Support();
+                              },
+                            ),
+                          ),
+                        },
                         child: const Text(
                           "Support",
                           style: TextStyle(

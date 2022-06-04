@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:police_app/screens/help_1.dart';
 
 class CantAccessAcc extends StatelessWidget {
   const CantAccessAcc({Key? key}) : super(key: key);
@@ -27,7 +28,16 @@ class CantAccessAcc extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const Help1();
+                },
+              ),
+            ),
+          },
         ),
       ],
     );

@@ -266,7 +266,7 @@ class _LicenceDetailsState extends State<LicenceDetails> {
                                 ),
                               },
                               child: const Text(
-                                "History",
+                                "Violation records",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,

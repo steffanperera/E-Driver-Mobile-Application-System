@@ -49,7 +49,7 @@ class _ViolationHistoryState extends State<ViolationHistory> {
                 children: <Widget>[
                   const SizedBox(height: 10),
                   const Text(
-                    "Violation History",
+                    "Violation Records",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,

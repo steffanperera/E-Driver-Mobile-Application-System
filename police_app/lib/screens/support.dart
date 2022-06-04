@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:police_app/screens/welcome_screen.dart';
+import 'package:police_app/screens/login_page.dart';
+import 'package:police_app/screens/officer_dashboard.dart';
 
-class OfficerHelp extends StatefulWidget {
-  const OfficerHelp({Key? key}) : super(key: key);
+class Support extends StatefulWidget {
+  const Support({Key? key}) : super(key: key);
 
   @override
-  State<OfficerHelp> createState() => _OfficerHelpState();
+  State<Support> createState() => _SupportState();
 }
 
-class _OfficerHelpState extends State<OfficerHelp> {
+class _SupportState extends State<Support> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +30,7 @@ class _OfficerHelpState extends State<OfficerHelp> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const WelcomeScreen();
+                        return const OfficerDashboard();
                       },
                     ),
                   ),
@@ -51,7 +52,7 @@ class _OfficerHelpState extends State<OfficerHelp> {
                 children: [
                   const SizedBox(height: 10),
                   const Text(
-                    "Help",
+                    "Support",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
