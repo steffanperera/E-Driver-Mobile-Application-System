@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drivers_app/screens/pay_fines.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:drivers_app/screens/pay_fines.dart';
 
 import '../staticdata.dart';
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({Key? key}) : super(key: key);
+class FineDetails extends StatefulWidget {
+  const FineDetails({Key? key}) : super(key: key);
 
   @override
-  State<PaymentPage> createState() => _PaymentPageState();
+  State<FineDetails> createState() => _FineDetailsState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _FineDetailsState extends State<FineDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,7 +51,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: <Widget>[
                   const SizedBox(height: 10),
                   const Text(
-                    "Proceed to payment",
+                    "Fine details",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -62,7 +62,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    "To complete payment please select \nyour payment method",
+                    "This fine payment has been completed.",
                     style: TextStyle(
                       color: Colors.black87,
                       fontFamily: 'Montserrat',
@@ -77,7 +77,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Container(
-                        color: const Color(0xFFEAFFF3),
+                        color: const Color(0xFFF5F5F5),
                         child: Padding(
                           padding: const EdgeInsets.all(14),
                           child: StreamBuilder<DocumentSnapshot>(
@@ -96,7 +96,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       userDocument["fine"],
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
-                                        color: Color(0xFF0DC171),
+                                        color: Colors.black,
                                         fontSize: 22,
                                         fontWeight: FontWeight.w600,
                                         height: 1.5,
@@ -107,7 +107,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       "#" + StaticData.fineId,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
-                                        color: Color(0xFF0DC171),
+                                        color: Colors.black,
                                         fontSize: 18,
                                         height: 1.5,
                                       ),
@@ -117,7 +117,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       userDocument["date"],
                                       style: const TextStyle(
                                         fontSize: 12,
-                                        color: Color(0xFF0DC171),
+                                        color: Colors.black,
                                       ),
                                     ),
                                     const SizedBox(height: 6),
@@ -125,43 +125,12 @@ class _PaymentPageState extends State<PaymentPage> {
                                       userDocument["loaction"],
                                       style: const TextStyle(
                                         fontSize: 14,
-                                        color: Color(0xFF0DC171),
+                                        color: Colors.black,
                                       ),
                                     ),
-                                    const SizedBox(height: 6),
-                                    // ElevatedButton(
-                                    //   onPressed: () {
-                                    //     payFine();
-                                    //   },
-                                    //   child: const Text("Pay Fine"),
-                                    // ),
                                   ],
                                 );
                               }),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // btn - login
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: size.width * 0.4,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                          backgroundColor: Colors.black,
-                        ),
-                        onPressed: () {
-                          payFine();
-                        },
-                        child: const Text(
-                          "Pay Fine",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
                         ),
                       ),
                     ),

@@ -1,9 +1,10 @@
-import 'package:drivers_app/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SupportPage extends StatelessWidget {
-  const SupportPage({Key? key}) : super(key: key);
+import 'driver_dashboard.dart';
+
+class DriverSupport extends StatelessWidget {
+  const DriverSupport({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +15,24 @@ class SupportPage extends StatelessWidget {
         backgroundColor: Colors.white,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0,
-        actions: <Widget>[
-          Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const LoginPage();
-                      },
-                    ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const DriverDashboard();
+                    },
                   ),
-                },
-                color: Colors.black,
-              );
-            },
-          ),
-        ],
+                ),
+              },
+              color: Colors.black,
+            );
+          },
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,7 +45,7 @@ class SupportPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   const Text(
-                    "Support",
+                    "E-Driver Support",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -89,6 +88,40 @@ class SupportPage extends StatelessWidget {
                       color: Colors.black87,
                       fontFamily: 'Montserrat',
                       fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // btn - back
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    width: size.width * 0.8,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          backgroundColor: const Color(0xFFF5F5F5),
+                          alignment: Alignment.centerLeft,
+                        ),
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const DriverDashboard();
+                              },
+                            ),
+                          ),
+                        },
+                        child: const Text(
+                          "Return to dashboard",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
                     ),
                   ),
                 ],

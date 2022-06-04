@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drivers_app/screens/fine_details.dart';
 import 'package:drivers_app/screens/payment_page.dart';
 import 'package:drivers_app/staticdata.dart';
 import 'package:flutter/material.dart';
@@ -189,14 +190,15 @@ class _PayFinesState extends State<PayFines> {
                                       alignment: Alignment.centerLeft,
                                     ),
                                     onPressed: () => {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) {
-                                      //       return const DriverProfile();
-                                      //     },
-                                      //   ),
-                                      // ),
+                                      StaticData.fineId = document.id,
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const FineDetails();
+                                          },
+                                        ),
+                                      ),
                                     },
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

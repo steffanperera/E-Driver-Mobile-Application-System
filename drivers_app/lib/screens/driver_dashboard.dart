@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drivers_app/screens/driver_support.dart';
 import 'package:drivers_app/screens/pay_fines.dart';
 import 'package:drivers_app/staticdata.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children:  <Widget>[
+                                    children: <Widget>[
                                       const Text(
                                         "Due fines",
                                         style: TextStyle(
@@ -140,7 +141,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children:  <Widget>[
+                                    children: <Widget>[
                                       const Text(
                                         "Total violations",
                                         style: TextStyle(
@@ -149,7 +150,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
                                       ),
                                       Text(
                                         tot.toString(),
-                                        style:const TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 22,
                                           fontWeight: FontWeight.w600,
@@ -254,7 +255,16 @@ class _DriverDashboardState extends State<DriverDashboard> {
                           backgroundColor: const Color(0xFFF5F5F5),
                           alignment: Alignment.centerLeft,
                         ),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const DriverSupport();
+                              },
+                            ),
+                          ),
+                        },
                         child: const Text(
                           "Support",
                           style: TextStyle(
