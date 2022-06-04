@@ -91,18 +91,18 @@ class _OfficerDashboardState extends State<OfficerDashboard> {
                           alignment: Alignment.centerLeft,
                         ),
                         onPressed: () => {
-                          // _tagRead(),
+                           _tagRead(),
 
-                          StaticData.driverId='d001',
+                          // StaticData.driverId='d001',
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const LicenceDetails();
-                              },
-                            ),
-                          )
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return const LicenceDetails();
+                          //     },
+                          //   ),
+                          // )
                         },
                         child: const Text(
                           "Complete scan",

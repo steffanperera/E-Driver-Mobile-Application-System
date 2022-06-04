@@ -57,10 +57,10 @@ class _DriverProfileState extends State<DriverProfile> {
                   stream: FirebaseFirestore.instance.collection('driver').doc(StaticData.userId).snapshots(),
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                     var userDocument = snapshot.data!;
                     if (userDocument['active'] == true) {
                       active = "Active";
