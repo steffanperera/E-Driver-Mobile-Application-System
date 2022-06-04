@@ -135,7 +135,7 @@ class _PayFinesState extends State<PayFines> {
                                           "#" + document.id + "",
                                           style: const TextStyle(
                                             color: Color(0xFFEA5252),
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             height: 1.6,
                                           ),
@@ -213,7 +213,7 @@ class _PayFinesState extends State<PayFines> {
                                           "#" + document.id + "",
                                           style: const TextStyle(
                                             color: Colors.black,
-                                            fontSize: 22,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600,
                                             height: 1.6,
                                           ),
